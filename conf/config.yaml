@@ -5,5 +5,5 @@ Log:
   Level: 5
   WriteFile: true
   CallReport: true
-  FileDir: /Users/dengxiaoyang/GoProjects/Projects/go-web/log
+  FileDir: /Users/dengxiaoyang/GoProjects/Projects/go-web/logs
   FileName: app.log
