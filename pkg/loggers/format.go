@@ -2,10 +2,13 @@ package loggers
 
 import (
 	"encoding/json"
+	"fmt"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/sirupsen/logrus"
+	"github.com/wocaishifengziA/go-web/pkg/configs"
 )
 
 type Formatter struct {
@@ -14,10 +17,13 @@ type Formatter struct {
 }
 
 func (f *Formatter) Format(entry *logrus.Entry) ([]byte, error) {
-	// debug = true
 	output := f.LogFormat
 	if output == "" {
 		output = defaultLogFormat
+
+		if configs.Config.Log.CallReport {
+			output = defaultLogPathFormat
+		}
 	}
 
 	timestampFormat := f.TimestampFormat
@@ -28,6 +34,10 @@ func (f *Formatter) Format(entry *logrus.Entry) ([]byte, error) {
 	output = strings.Replace(output, "%time%", entry.Time.Format(timestampFormat), 1)
 
 	output = strings.Replace(output, "%msg%", entry.Message, 1)
+	time.Sleep(time.Duration(3) * time.Second)
+	if configs.Config.Log.CallReport {
+		output = strings.Replace(output, "%path%", fmt.Sprintf("%s:%d", entry.Caller.File, entry.Caller.Line), 1)
+	}
 
 	if len(entry.Data) > 0 {
 		fields, _ := json.Marshal(entry.Data)
@@ -51,4 +61,5 @@ func (f *Formatter) Format(entry *logrus.Entry) ([]byte, error) {
 	}
 
 	return []byte(output), nil
+
 }

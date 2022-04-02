@@ -8,12 +8,13 @@ import (
 	"sync"
 
 	"github.com/sirupsen/logrus"
+	"github.com/wocaishifengziA/go-web/pkg/configs"
 )
 
 var once sync.Once
 var instance *logrus.Logger
 
-var log = LogInstance()
+var logger = LogInstance()
 
 func LogInstance() *logrus.Logger {
 	once.Do(func() {
@@ -28,9 +29,9 @@ type FileInfo struct {
 	FullPath string
 }
 
-func getFileInfo() *FileInfo {
-	name := LOG_NAME
-	dir := LOG_DIR
+func getFileInfo(c configs.Log) *FileInfo {
+	name := c.FileName
+	dir := c.FileDir
 	return &FileInfo{
 		Name:     name,
 		Dir:      dir,
@@ -38,28 +39,32 @@ func getFileInfo() *FileInfo {
 	}
 }
 
-func InitLogWriteFile(isWriteFile bool) {
-	if isWriteFile {
-		fileInfo := getFileInfo()
+func InitLogWriteFile(c configs.Log) {
+	if c.WriteFile {
+		fileInfo := getFileInfo(c)
 		if err := os.MkdirAll(fileInfo.Dir, 0755); err != nil {
 			fmt.Println(err.Error())
+			return
 		}
 		if _, err := os.Stat(fileInfo.FullPath); err != nil {
 			if _, err := os.Create(fileInfo.FullPath); err != nil {
 				fmt.Println(err.Error())
+				return
 			}
 		}
 		writeToFile, err := os.OpenFile(fileInfo.FullPath, os.O_APPEND|os.O_WRONLY, os.ModeAppend)
 		if err != nil {
-			fmt.Println("err", err)
+			fmt.Println(err.Error())
+			return
 		}
 		writers := io.MultiWriter(os.Stdout, writeToFile)
-		log.SetOutput(writers)
+		logger.SetOutput(writers)
 	}
 }
 
-func InitLogger() {
-	log.SetLevel(logrus.DebugLevel)
-	log.SetFormatter(&Formatter{})
-	InitLogWriteFile(false)
+func InitLogger(c configs.Log) {
+	logger.SetLevel(c.Level)
+	logger.SetReportCaller(true)
+	logger.SetFormatter(&Formatter{})
+	InitLogWriteFile(c)
 }

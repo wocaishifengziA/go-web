@@ -1,0 +1,9 @@
+DebugModel: true
+
+Log:
+  # 6: trace, 5: debug, 4: info
+  Level: 5
+  WriteFile: true
+  CallReport: true
+  FileDir: /Users/dengxiaoyang/GoProjects/Projects/go-web/log
+  FileName: app.log
