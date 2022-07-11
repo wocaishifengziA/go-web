@@ -1,12 +1,22 @@
 package main
 
 import (
-	"github.com/wocaishifengziA/go-web/pkg/configs"
-	"github.com/wocaishifengziA/go-web/pkg/loggers"
+	"log"
+
+	"github.com/wocaishifengziA/go-web/pkg/prom"
 )
 
 func main() {
-	configs.InitConfig("./conf/config.yaml")
-	loggers.InitLogger(configs.Config.Log)
-	loggers.LogInstance().Infoln("ok")
+	// configs.InitConfig("./conf/config.yaml")
+	// loggers.InitLogger(configs.Config.Log)
+	// loggers.LogInstance().Infoln("ok")
+	// rabbitmq.DoBlock()
+
+	// promethus pushgateway
+	log.Println("----------------")
+	
+	prom.UploadPrometheus()
+	// prom.UploadPrometheus()
+	// prom.UploadPrometheus()
+	for{}
 }
