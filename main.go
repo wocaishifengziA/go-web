@@ -1,42 +1,24 @@
 package main
 
-import (
-	"fmt"
-)
-
-type Toy interface {
-	Play()
-}
-
-type Puzzle struct {
-	Name string
-}
-
-func (*Puzzle) Play() {
-	fmt.Println("palying puzzle!")
-}
+import "github.com/gin-gonic/gin"
 
 func main() {
-	// configs.InitConfig("./conf/config.yaml")
-	// loggers.InitLogger(configs.Config.Log)
-	// loggers.LogInstance().Infoln("ok")
-	// rabbitmq.DoBlock()
-	// r := gin.Default()
-	// r := gin.New()
-	// r.GET("/ping", func(c *gin.Context) {
-	// 	c.JSON(http.StatusOK, gin.H{
-	// 		"message": "pong",
-	// 	})
+	// var m sync.Map
+	// m.Store("a", 1)
+	// m.Store("b", 2)
+	// m.Store("c", 3)
+	// fmt.Println(m.Load("a"))
+
+	// mx := make(map[string]int)
+	// m.Range(func(k, v interface{}) bool {
+	// 	mx[k.(string)] = v.(int)
+	// 	return true
 	// })
-	// r.Run() // listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
-	// syncpool.Run()
-	var t Toy
-	p := &Puzzle{Name: "jake"}
-	t = p
-	t.Play()
-	x, ok := t.(*Puzzle)
-	if !ok {
-		fmt.Println("not ok")
-	}
-	fmt.Println("xx: ", x.Name)
+	// fmt.Println(mx)
+
+	r := gin.Default()
+	r.GET("/download", func(c *gin.Context) {
+		c.File("./README.pdf")
+	})
+	r.Run(":8080")
 }
