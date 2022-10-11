@@ -1,6 +1,9 @@
 package main
 
-import "github.com/gin-gonic/gin"
+import (
+	"fmt"
+	"time"
+)
 
 func main() {
 	// var m sync.Map
@@ -16,9 +19,17 @@ func main() {
 	// })
 	// fmt.Println(mx)
 
-	r := gin.Default()
-	r.GET("/download", func(c *gin.Context) {
-		c.File("./README.pdf")
-	})
-	r.Run(":8080")
+	// r := gin.Default()
+	// g := r.Group("/cnm")
+	// g.GET("/bb", func(ctx *gin.Context) {
+	// 	ctx.JSON(200, "sdsd")
+	// })
+	// r.GET("/download", func(c *gin.Context) {
+	// 	c.File("./README.pdf")
+	// })
+	// r.Run(":8080")
+
+	// pflag test
+	// pflagx.PlagDo()
+	fmt.Println(time.Now().UnixNano()/1e6)
 }
