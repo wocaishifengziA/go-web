@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    apedgenode: test-port
+  name: test-port
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      apedgenode: test-port
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "false"
+      labels:
+        apedgenode: test-port
+    spec:
+      containers:
+      - image: harbor.apulis.cn:8443/apulisedge/edge-test:v0.0.0
+        imagePullPolicy: Always
+        name: test-port
+        ports:
+        - containerPort: 8099
+          hostPort: 8011
+          name: web-portal
+          protocol: TCP
+      nodeSelector:
+        kubernetes.io/hostname: aaa
+      restartPolicy: Always
