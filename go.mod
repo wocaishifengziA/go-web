@@ -13,4 +13,6 @@ require (
 	github.com/spf13/viper v1.13.0
 	github.com/streadway/amqp v1.0.0
 	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
+	gorm.io/driver/mysql v1.4.3
+	gorm.io/gorm v1.24.0
 )
