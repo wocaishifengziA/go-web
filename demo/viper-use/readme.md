@@ -12,6 +12,7 @@ key/value存储
 1. 当前版本对key不区分大小写（统一读取为小写）
 2. Viper将ENV变量视为区分大小写
 3. 使用ENV变量时，每次访问该值时都将读取它
+4. 开箱即用，本身是一个单例模式
 
 ## 相关博客
 https://www.liwenzhou.com/posts/Go/viper_tutorial/
