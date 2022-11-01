@@ -15,10 +15,10 @@ func main() {
 		ImagesetID:  1,
 		ImageTaskId: 2,
 	}
-	LogJson(v, "a")
+	PrintJson(v, "a")
 }
 
-func LogJson(data interface{}, msg string) {
+func PrintJson(data interface{}, msg string) {
 	s, _ := json.Marshal(data)
 	log.Println(msg)
 	log.Println("json: ", string(s))
