@@ -17,3 +17,13 @@ ffmpeg -i aaa.mp4 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//
 ```
 ffmpeg -i aaa.mp4 -r 1 -q:v 2  -s 640x360  -f image2 /tmp/%08d.jpg
 ```
+
+# 获取视频完整信息
+```
+ffprobe bbb.mp4 -show_streams -select_streams v -print_format json
+```
+
+## 获取视频首帧
+```
+ffmpeg -i aaa.mp4 -r 1 -ss 00:00:00 -vframes 1 preview.jpg
+```
